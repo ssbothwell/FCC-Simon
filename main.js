@@ -4,7 +4,6 @@ window.onload = function() {
   if (canvas.getContext) {
     var ctx = canvas.getContext('2d');
 
-
     ctx.beginPath();
     ctx.arc(300, 300, 300, 0, Math.PI * 2, true); // Outer circle
     ctx.fillStyle = '#343134';
@@ -70,6 +69,91 @@ window.onload = function() {
     ctx.fill();
     // Restore Rest of Canvas 
     ctx.restore();
+    
+    // Title Text
+    ctx.font = "60px Arial";
+    ctx.fillStyle = '#333';
+    ctx.textAlign = 'center';
+    ctx.fillText('Simoné',300,250);
+
+    // Power Switch
+    ctx.beginPath();
+    ctx.rect(275,390, 50,25);
+    ctx.fillStyle = '#211f22';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.rect(302,392, 21,21);
+    ctx.fillStyle = '#1d8cff';
+    ctx.fill();
+
+    // Power Switch Labels 
+    ctx.font = "12px Arial";
+    ctx.fillStyle = '#333';
+    ctx.textAlign = 'right';
+    ctx.fillText('OFF',270,406);
+    ctx.textAlign = 'left';
+    ctx.fillText('ON',330,406);
+
+    // Start Button
+    ctx.beginPath();
+    ctx.arc(300,310,18,0, Math.PI * 2, true);
+    ctx.fillStyle = '#333333';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(300,310,12,0,Math.PI * 2);
+    ctx.fillStyle = '#fa0000';
+    ctx.fill();
+
+    // Start Label 
+    ctx.font = "12px Arial";
+    ctx.fillStyle = '#333';
+    ctx.textAlign = 'center';
+    ctx.fillText('START',300,345);
+
+    // Strict Button
+    ctx.beginPath();
+    ctx.arc(366,310,18,0, Math.PI * 2, true);
+    ctx.fillStyle = '#333333';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(366,310,12,0, Math.PI * 2, true);
+    ctx.fillStyle = '#ffff00';
+    ctx.fill();
+
+    // Strict Label 
+    ctx.font = "12px Arial";
+    ctx.fillStyle = '#333';
+    ctx.textAlign = 'center';
+    ctx.fillText('STRICT',366,345);
+
+    // Power Button
+    ctx.beginPath();
+    ctx.arc(366,280,6,0, Math.PI * 2, true);
+    ctx.fillStyle = '#333333';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(366,280,3,0, Math.PI * 2, true);
+    ctx.fillStyle = '#fa0000';
+    ctx.fill();
+
+    // Count Screen
+    ctx.beginPath();
+    ctx.rect(190,285,75,50);
+    ctx.fillStyle = '#211f22';
+    ctx.fill();
+
+    // Count Text
+    ctx.font = "42px Arial";
+    ctx.fillStyle = '#fa0000';
+    ctx.textAlign = 'center';
+    ctx.fillText('02',227,325);
+
+    // Count Label 
+    ctx.font = "12px Arial";
+    ctx.fillStyle = '#333';
+    ctx.textAlign = 'center';
+    ctx.fillText('COUNT',227.5,355);
+
   }
 
   function dToR(degrees) {
