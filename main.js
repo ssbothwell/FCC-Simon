@@ -137,10 +137,7 @@ window.onload = function() {
     ctx.fill();
 
     // Count Screen
-    ctx.beginPath();
-    ctx.rect(190,285,75,50);
-    ctx.fillStyle = '#211f22';
-    ctx.fill();
+    roundedRect(190,285,75,50,10,'fill', '#211f22');
 
     // Count Text
     ctx.font = "42px Arial";
@@ -153,8 +150,29 @@ window.onload = function() {
     ctx.fillStyle = '#333';
     ctx.textAlign = 'center';
     ctx.fillText('COUNT',227.5,355);
-
+    
   }
+  
+  function roundedRect(x,y,width,height,radii,fillMethod, color) {
+    // Draw a rounded rectangle
+    ctx.beginPath();
+    ctx.arc(x+radii,y+radii,radii,dToR(180),dToR(270));
+    ctx.lineTo(x+radii+width-(2*radii),y);
+    ctx.arc(x+width-radii,y+radii,radii,dToR(270),dToR(0));
+    ctx.lineTo(x+width,y+height-radii);
+    ctx.arc(x+width-radii,y+height-radii,radii,dToR(0),dToR(90));
+    ctx.lineTo(x+radii,y+height);
+    ctx.arc(x+radii,y+height-radii,radii, dToR(90),dToR(180));
+    ctx.lineTo(x,y+radii);
+
+    if (fillMethod === 'fill') {
+      ctx.fillStyle = color;
+      ctx.fill();
+    } else if (fillMethod === 'stroke') {
+      ctx.strokeStyle = color;
+      ctx.stroke();
+    }  
+  }  
 
   function dToR(degrees) {
   // Converts degrees to radians
