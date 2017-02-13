@@ -77,14 +77,8 @@ window.onload = function() {
     ctx.fillText('Simoné',300,250);
 
     // Power Switch
-    ctx.beginPath();
-    ctx.rect(275,390, 50,25);
-    ctx.fillStyle = '#211f22';
-    ctx.fill();
-    ctx.beginPath();
-    ctx.rect(302,392, 21,21);
-    ctx.fillStyle = '#1d8cff';
-    ctx.fill();
+    roundedRect(275,390,50,25,3,'fill', '#211f22');
+    roundedRect(302,392,21,21,3,'fill', '#1d8cff');
 
     // Power Switch Labels 
     ctx.font = "12px Arial";
