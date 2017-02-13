@@ -262,17 +262,53 @@ window.onload = function() {
     lockMovementX: true,
     lockMovementY: true,
   });
-
+  
+  var strictFlag = false;
   strictForeground.on('mousedown', function() {
       strictForeground.animate('top', '+=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
       strictBackground.animate('top', '+=2', { onChange: canvas.renderAll.bind(canvas), duration: 100, });
       //startBackground.animate({'shadow.offsetY': 0,'shadow.blur': 0,});       
+      if (strictFlag === false) {
+        canvas.add(strictLight);
+        strictFlag = true;
+      } else {
+        canvas.remove(strictLight);
+        strictFlag = false;
+      }
   }); 
   strictForeground.on('mouseup', function() {
       strictForeground.animate('top', '-=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
       strictBackground.animate('top', '-=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
       //startBackground.animate({'shadow.offsetY': 3, 'shadow.blur': 10,});       
-    
+      //canvas.remove(strictLight);
+  });
+
+  // Strict Light Background
+  var strictLightBackground = new fabric.Circle({
+    radius: 6,
+    top: 275,
+    left: 366,
+    originX: 'center',
+    originY: 'center',
+    fill: '#333333',
+    hasControls: false,
+    hasBordes: false,
+    lockMovementX: true,
+    lockMovementY: true,
+  });
+
+  // Strict Light
+  var strictLight = new fabric.Circle({
+    radius: 3,
+    top: 275,
+    left: 366,
+    originX: 'center',
+    originY: 'center',
+    fill: '#fa0000',
+    hasControls: false,
+    hasBordes: false,
+    lockMovementX: true,
+    lockMovementY: true,
   });
 
   var startText = new fabric.Text('START', { 
@@ -350,6 +386,8 @@ window.onload = function() {
   canvas.add(countText);
   canvas.add(powerSwitchOnText);
   canvas.add(powerSwitchOffText);
+  canvas.add(strictLightBackground);
+  //canvas.add(strictLight);
 }
 
 
