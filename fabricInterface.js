@@ -98,7 +98,6 @@ window.onload = function() {
     canvas.deactivateAll().renderAll();
   });
 
-
   var titleText = new fabric.Text('Simoné', { 
     left: 300, 
     top: 230,
@@ -174,11 +173,26 @@ window.onload = function() {
     hasBorders: false,
     lockMovementX: true,
     lockMovementY: true,
-    shadow:{ color:"rgb(0,0,0)",blur:15,offsetY:2 }
+    selectable: false,
   });
 
+  // Start Button Shadow 
+  var startShadow = new fabric.Circle({
+    radius: 16,
+    top: 310,
+    left: 300,
+    originX: 'center',
+    originY: 'center',
+    fill: '#eee9ed',
+    hasControls: false,
+    hasBorders: false,
+    lockMovementX: true,
+    lockMovementY: true,
+    selectable: false,
+    shadow:{ color:"rgb(0,0,0)",blur:8,offsetY:5 }
+  });
 
-  // Strict Button Foreground
+  // Start Button Foreground
   var startForeground = new fabric.Circle({
     radius: 12,
     top: 310,
@@ -195,10 +209,13 @@ window.onload = function() {
   startForeground.on('mousedown', function() {
       startBackground.animate('top', '+=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
       startForeground.animate('top', '+=2', { onChange: canvas.renderAll.bind(canvas), duration: 100, });
+      //startBackground.animate({'shadow.offsetY': 0,'shadow.blur': 0,});       
   }); 
   startForeground.on('mouseup', function() {
       startBackground.animate('top', '-=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
       startForeground.animate('top', '-=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
+      //startBackground.animate({'shadow.offsetY': 3, 'shadow.blur': 10,});       
+    
   });
 
   // Strict Button Background
@@ -213,6 +230,23 @@ window.onload = function() {
     hasBorders: false,
     lockMovementX: true,
     lockMovementY: true,
+    selectable: false,
+  });
+
+  // Strict Button Shadow 
+  var strictShadow = new fabric.Circle({
+    radius: 16,
+    top: 310,
+    left: 366,
+    originX: 'center',
+    originY: 'center',
+    fill: '#eee9ed',
+    hasControls: false,
+    hasBorders: false,
+    lockMovementX: true,
+    lockMovementY: true,
+    selectable: false,
+    shadow:{ color:"rgb(0,0,0)",blur:8,offsetY:5 }
   });
 
   // Strict Button Foreground
@@ -229,6 +263,71 @@ window.onload = function() {
     lockMovementY: true,
   });
 
+  strictForeground.on('mousedown', function() {
+      strictForeground.animate('top', '+=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
+      strictBackground.animate('top', '+=2', { onChange: canvas.renderAll.bind(canvas), duration: 100, });
+      //startBackground.animate({'shadow.offsetY': 0,'shadow.blur': 0,});       
+  }); 
+  strictForeground.on('mouseup', function() {
+      strictForeground.animate('top', '-=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
+      strictBackground.animate('top', '-=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
+      //startBackground.animate({'shadow.offsetY': 3, 'shadow.blur': 10,});       
+    
+  });
+
+  var startText = new fabric.Text('START', { 
+    left: 300, 
+    top: 345,
+    fontSize: 12,
+    fontFamily: 'Arial',
+    textAlign: 'center',
+    originX: 'center',
+    originY: 'center',
+    selectable: false,
+  });
+
+  var strictText = new fabric.Text('STRICT', { 
+    left: 366, 
+    top: 345,
+    fontSize: 12,
+    fontFamily: 'Arial',
+    textAlign: 'center',
+    originX: 'center',
+    originY: 'center',
+    selectable: false,
+  });
+
+  var countText = new fabric.Text('COUNT', { 
+    left: 227.5, 
+    top: 355,
+    fontSize: 12,
+    fontFamily: 'Arial',
+    textAlign: 'center',
+    originX: 'center',
+    originY: 'center',
+    selectable: false,
+  });
+
+  var powerSwitchOnText = new fabric.Text('ON', { 
+    left: 340, 
+    top: 404,
+    fontSize: 12,
+    fontFamily: 'Arial',
+    originX: 'center',
+    originY: 'center',
+    selectable: false,
+  });
+
+  var powerSwitchOffText = new fabric.Text('OFF', { 
+    left: 260, 
+    top: 404,
+    fontSize: 12,
+    fontFamily: 'Arial',
+    originX: 'center',
+    originY: 'center',
+    selectable: false,
+  });
+
   // "add" shapes into canvas
   canvas.add(outerCircle);
   canvas.add(innerCircle);
@@ -240,10 +339,17 @@ window.onload = function() {
   canvas.add(powerSwitch);
   canvas.add(powerSwitchToggle);
   canvas.add(countScreen);
+  canvas.add(startShadow);
   canvas.add(startBackground);
   canvas.add(startForeground);
+  canvas.add(strictShadow);
   canvas.add(strictBackground);
   canvas.add(strictForeground);
+  canvas.add(strictText);
+  canvas.add(startText);
+  canvas.add(countText);
+  canvas.add(powerSwitchOnText);
+  canvas.add(powerSwitchOffText);
 }
 
 
