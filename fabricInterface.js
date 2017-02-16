@@ -333,7 +333,7 @@ window.onload = function() {
     selectable: false,
   });
 
-  var countText = new fabric.Text('COUNT', { 
+  var countLabel = new fabric.Text('COUNT', { 
     left: 227.5, 
     top: 355,
     fontSize: 12,
@@ -342,6 +342,18 @@ window.onload = function() {
     originX: 'center',
     originY: 'center',
     selectable: false,
+  });
+
+  var countText = new fabric.Text('02', {
+    left: 227,
+    top: 312,
+    originX: 'center',
+    originY: 'center',
+    textAlign: 'center',
+    ontsize: 42,
+    fontFamily: 'Arial',
+    selectable: false,
+    fill: '#fa0000',
   });
 
   var powerSwitchOnText = new fabric.Text('ON', { 
@@ -383,6 +395,7 @@ window.onload = function() {
   canvas.add(strictForeground);
   canvas.add(strictText);
   canvas.add(startText);
+  canvas.add(countLabel);
   canvas.add(countText);
   canvas.add(powerSwitchOnText);
   canvas.add(powerSwitchOffText);
