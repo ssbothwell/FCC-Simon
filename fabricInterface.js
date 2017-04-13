@@ -36,6 +36,7 @@ window.onload = function() {
   greenButton.on('mousedown', function() {
     greenButton.setFill('#13ff7c');
     canvas.deactivateAll().renderAll();
+    game.playerClick(0);
   }); 
 
   greenButton.on('mouseup', function() {
@@ -55,6 +56,7 @@ window.onload = function() {
   redButton.on('mousedown', function() {
     redButton.setFill('#ff4c4c');
     canvas.deactivateAll().renderAll();
+    game.playerClick(1);
   }); 
   redButton.on('mouseup', function() {
     redButton.setFill('#9c121c');
@@ -73,7 +75,7 @@ window.onload = function() {
   blueButton.on('mousedown', function() {
     blueButton.setFill('#3399ff');
     canvas.deactivateAll().renderAll();
-    console.log('foo');
+    game.playerClick(2);
   }); 
   blueButton.on('mouseup', function() {
     blueButton.setFill('#1d8cff');
@@ -92,6 +94,7 @@ window.onload = function() {
   yellowButton.on('mousedown', function() {
     yellowButton.setFill('#fed93f');
     canvas.deactivateAll().renderAll();
+    game.playerClick(3);
   }); 
   yellowButton.on('mouseup', function() {
     yellowButton.setFill('#cba70a');
@@ -210,6 +213,7 @@ window.onload = function() {
       startBackground.animate('top', '+=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
       startForeground.animate('top', '+=2', { onChange: canvas.renderAll.bind(canvas), duration: 100, });
       //startBackground.animate({'shadow.offsetY': 0,'shadow.blur': 0,});       
+      game.newGame();
   }); 
   startForeground.on('mouseup', function() {
       startBackground.animate('top', '-=2', { onChange: canvas.renderAll.bind(canvas), duration: 100,});
@@ -344,7 +348,7 @@ window.onload = function() {
     selectable: false,
   });
 
-  var countText = new fabric.Text('02', {
+  var countText = new fabric.Text(game.moveCount.toString(), {
     left: 227,
     top: 312,
     originX: 'center',
@@ -355,7 +359,6 @@ window.onload = function() {
     selectable: false,
     fill: '#fa0000',
   });
-
   var powerSwitchOnText = new fabric.Text('ON', { 
     left: 340, 
     top: 404,
@@ -402,5 +405,4 @@ window.onload = function() {
   canvas.add(strictLightBackground);
   //canvas.add(strictLight);
 }
-
-
+ 
