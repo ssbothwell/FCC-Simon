@@ -24,36 +24,44 @@ function State(playerMove) {
   
   //// FabricJS Button Highlight Functions
   function hlGreen() {
-    greenButton.setFill('#13ff7c');
-    canvas.renderAll();
+    setTimeout(function() {
+      greenButton.setFill('#13ff7c');
+      canvas.renderAll();
+    }, 500);
     setTimeout(function() {
       greenButton.setFill('#03a64b');
       canvas.renderAll();
-    }, 500); 
+    }, 750); 
   }
   function hlRed() {
-    redButton.setFill('#ff4c4c');
-    canvas.renderAll();
+    setTimeout(function() {
+      redButton.setFill('#ff4c4c');
+      canvas.renderAll();
+    }, 500);
     setTimeout(function() {
       redButton.setFill('#9c121c');
       canvas.renderAll();
-    }, 500); 
+    }, 750); 
   }
   function hlBlue() {
-    blueButton.setFill('#3399ff');
-    canvas.renderAll();
+    setTimeout(function() {
+      blueButton.setFill('#3399ff');
+      canvas.renderAll();
+    }, 500);
     setTimeout(function() {
       blueButton.setFill('#1d8cff');
       canvas.renderAll();
-    }, 500); 
+    }, 750); 
   }
   function hlYellow() {
-    yellowButton.setFill('#fed93f');
-    canvas.renderAll();
+    setTimeout(function() {
+      yellowButton.setFill('#fed93f');
+      canvas.renderAll();
+    }, 500);
     setTimeout(function() {
       yellowButton.setFill('#cba70a');
       canvas.renderAll();
-    }, 500); 
+    }, 750); 
   }
   var hlArr = [hlGreen, hlRed, hlBlue, hlYellow];
   
@@ -68,6 +76,7 @@ function State(playerMove) {
 
   // fabricJS counter update
   function updateGuiCounter(val) {
+    counter.bringToFront();
     counter.setText(val);
     canvas.renderAll();
   }
@@ -76,7 +85,9 @@ function State(playerMove) {
   this.incrementCounter = function () {
     this.roundNumber++;
     var round = 1 + this.roundNumber;
-    updateGuiCounter(round.toString());
+    setTimeout(function() {
+      updateGuiCounter(round.toString());
+    }, 500);
   }
 
   this.resetGame = function() {
@@ -117,10 +128,8 @@ function State(playerMove) {
   // Start The Next Round
   this.startRound = function() {
     this.resetMove();
-    if (this.power == 2) {
-      for (var i = 0; i <= this.roundNumber; i++){
-        this.doSetTimeout(this.moves, i);
-      }
+    for (var i = 0; i <= this.roundNumber; i++){
+      this.doSetTimeout(this.moves, i);
     }    
   }
 
@@ -129,6 +138,7 @@ function State(playerMove) {
     canvas.renderAll();
     if (this.power == 1) {
       this.generateMoves();
+      updateGuiCounter('1');
       console.log('new game');
       this.power = 2;
       this.startRound();

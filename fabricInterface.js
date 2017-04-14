@@ -11,6 +11,7 @@ function gui() {
     originX: 'center',
     originY: 'center',
     selectable: false,
+    evented: false,
   });
   
   // Inner Circle Object
@@ -22,6 +23,7 @@ function gui() {
     originY: 'center',
     fill: '#eee9ed',
     selectable: false,
+    evented: false,
   });
   
   // Green Button
@@ -104,7 +106,9 @@ function gui() {
     yellowButton.setFill('#cba70a');
     canvas.deactivateAll().renderAll();
   });
+  
 
+  // Title Text
   var titleText = new fabric.Text('Simoné', { 
     left: 300, 
     top: 230,
@@ -114,6 +118,7 @@ function gui() {
     originX: 'center',
     originY: 'center',
     selectable: false,
+    evented: false,
   });
 
   // Power Switch
@@ -167,6 +172,7 @@ function gui() {
     hasBorders: false,
     lockMovementX: true,
     lockMovementY: true,
+    evented: false,
   });
 
   // Start Button Background
