@@ -1,6 +1,6 @@
-window.onload = function() {
+function gui() {
   // create a wrapper around native canvas element (with id="c")
-  var canvas = new fabric.Canvas('game');
+  canvas = new fabric.Canvas('game');
   
   // Outer Circle Object
   var outerCircle = new fabric.Circle({
@@ -140,6 +140,7 @@ window.onload = function() {
   
   var powerFlag = false;
   powerSwitchToggle.on('mousedown', function() {
+    game.powerToggle();
     if ( powerFlag === true ) {
       powerSwitchToggle.animate('left', '-=25', { onChange: canvas.renderAll.bind(canvas) });
       powerFlag = false;
@@ -348,7 +349,8 @@ window.onload = function() {
     selectable: false,
   });
 
-  var countText = new fabric.Text(game.moveCount.toString(), {
+  var countText = new fabric.Text('', {
+    name: 'countText',
     left: 227,
     top: 312,
     originX: 'center',
@@ -359,6 +361,7 @@ window.onload = function() {
     selectable: false,
     fill: '#fa0000',
   });
+
   var powerSwitchOnText = new fabric.Text('ON', { 
     left: 340, 
     top: 404,
@@ -405,4 +408,3 @@ window.onload = function() {
   canvas.add(strictLightBackground);
   //canvas.add(strictLight);
 }
- 
