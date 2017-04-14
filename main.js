@@ -14,6 +14,5 @@ function start() {
   };
   gui();
   game = new State();
-  game.generateMoves();
 }
 window.onload = start; 

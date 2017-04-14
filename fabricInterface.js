@@ -26,6 +26,7 @@ function gui() {
   
   // Green Button
   var greenButton = new fabric.Path("M 290 145 A 155 155 0 0 0 145 290 L 30 290 A 270 270 0 0 1 290 30", {
+    name: 'green',
     fill: '#03a64b', 
     hasControls: false,
     hasBorders: false,
@@ -46,6 +47,7 @@ function gui() {
 
   // Red Button
   var redButton = new fabric.Path("M 310 145 A 155 155 0 0 1 455 290 L 570 290 A 270 270 0 0 0 310 30", {
+    name: 'red',
     fill: '#9c121c',
     hasControls: false,
     hasBorders: false,
@@ -65,6 +67,7 @@ function gui() {
 
   // Blue Button
   var blueButton = new fabric.Path("M 455 310 A 155 155 0 0 1 310 455 L 310 570 A 270 270 0 0 0 570 310", {
+    name: 'blue',
     fill: '#1d8cff',
     hasControls: false,
     hasBorders: false,
@@ -84,6 +87,7 @@ function gui() {
 
   // Yellow Button
   var yellowButton = new fabric.Path("M 290 455 A 155 155 0 0 1 145 310 L 30 310 A 270 270 0 0 0 290 570", {
+    name: 'yellow',
     fill: '#cba70a',
     hasControls: false,
     hasBorders: false,
