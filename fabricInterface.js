@@ -286,9 +286,11 @@ function gui() {
       if (strictFlag === false) {
         canvas.add(strictLight);
         strictFlag = true;
+        game.strict = true;
       } else {
         canvas.remove(strictLight);
         strictFlag = false;
+        game.strict = false;
       }
   }); 
   strictForeground.on('mouseup', function() {

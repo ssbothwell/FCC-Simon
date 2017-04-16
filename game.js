@@ -1,6 +1,6 @@
 function State(playerMove) {
-  // List of moves in current game
-  this.moves = [];
+  // List of pattern in current game
+  this.pattern = [];
   // Current move index
   this.currentMoveIndex = 0;
   // Current Round Number 
@@ -31,7 +31,7 @@ function State(playerMove) {
     setTimeout(function() {
       greenButton.setFill('#03a64b');
       canvas.renderAll();
-    }, 750); 
+    }, 1000); 
   }
   function hlRed() {
     setTimeout(function() {
@@ -41,7 +41,7 @@ function State(playerMove) {
     setTimeout(function() {
       redButton.setFill('#9c121c');
       canvas.renderAll();
-    }, 750); 
+    }, 1000); 
   }
   function hlBlue() {
     setTimeout(function() {
@@ -51,7 +51,7 @@ function State(playerMove) {
     setTimeout(function() {
       blueButton.setFill('#1d8cff');
       canvas.renderAll();
-    }, 750); 
+    }, 1000); 
   }
   function hlYellow() {
     setTimeout(function() {
@@ -61,7 +61,7 @@ function State(playerMove) {
     setTimeout(function() {
       yellowButton.setFill('#cba70a');
       canvas.renderAll();
-    }, 750); 
+    }, 1000); 
   }
   var hlArr = [hlGreen, hlRed, hlBlue, hlYellow];
   
@@ -96,19 +96,19 @@ function State(playerMove) {
     updateGuiCounter('--');
   }
   
-  // Helper function for generating moves array
+  // Helper function for generating pattern array
   this.randomButton = function() {
     return Math.floor(Math.random() * 4);
   }
   
   // Helper function to return current move
   this.currentMove = function() {
-    return this.moves[this.currentMoveIndex];
+    return this.pattern[this.currentMoveIndex];
   }
 
   // Generate move array
-  this.generateMoves = function() {
-    this.moves = Array(5).fill(0).map(this.randomButton); 
+  this.generatePattern = function() {
+    this.pattern = Array(5).fill(0).map(this.randomButton); 
   }
   
   // Power On Function
@@ -122,22 +122,22 @@ function State(playerMove) {
     setTimeout(function() {
       console.log(arr[i]);
       hlArr[arr[i]]();
-    }, 1000 * i);
+    }, 1500 * i);
   }
 
   // Start The Next Round
   this.startRound = function() {
     this.resetMove();
     for (var i = 0; i <= this.roundNumber; i++){
-      this.doSetTimeout(this.moves, i);
+      this.doSetTimeout(this.pattern, i);
     }    
   }
 
   // Start a new game
   this.newGame = function() {
     canvas.renderAll();
-    if (this.power == 1) {
-      this.generateMoves();
+    if (this.power != 0) {
+      this.generatePattern();
       updateGuiCounter('1');
       console.log('new game');
       this.power = 2;
@@ -162,9 +162,14 @@ function State(playerMove) {
           this.nextMove();
         }
       } else {
-        console.log('you lose!');
-        this.power = 1;
-        this.resetGame();
+        if (this.strict == true) {
+          this.power = 1;
+          this.resetGame();
+          console.log('you lose!');
+        } else {
+          this.startRound(); 
+          console.log('try again');
+        }
       }
     }
   }
