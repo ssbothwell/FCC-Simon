@@ -1,10 +1,10 @@
 function State(playerMove) {
-  // List of pattern in current game
+  // Move pattern for current game
   this.pattern = [];
-  // Current move index
+  // Tracks player's moves in current round
   this.currentMoveIndex = 0;
-  // Current Round Number 
-  this.roundNumber = 0;
+  // Current Round Tracker 
+  this.roundCounter = 0;
   // Strict mode flag
   this.strict = false;
   // Game state on|off|started = 0|1|2
@@ -82,16 +82,16 @@ function State(playerMove) {
   }
 
   // Update counter
-  this.incrementCounter = function () {
-    this.roundNumber++;
-    var round = 1 + this.roundNumber;
+  this.incrementRoundCounter = function () {
+    this.roundCounter++;
+    var round = 1 + this.roundCounter;
     setTimeout(function() {
       updateGuiCounter(round.toString());
     }, 500);
   }
 
   this.resetGame = function() {
-    this.roundNumber = 0;
+    this.roundCounter = 0;
     this.currentMoveIndex = 0;
     updateGuiCounter('--');
   }
@@ -128,7 +128,7 @@ function State(playerMove) {
   // Start The Next Round
   this.startRound = function() {
     this.resetMove();
-    for (var i = 0; i <= this.roundNumber; i++){
+    for (var i = 0; i <= this.roundCounter; i++){
       this.doSetTimeout(this.pattern, i);
     }    
   }
@@ -154,9 +154,9 @@ function State(playerMove) {
           console.log('You Win!');
           this.resetGame();
           this.power = 1;
-        } else if (this.currentMoveIndex == this.roundNumber) {
+        } else if (this.currentMoveIndex == this.roundCounter) {
           console.log('Round Complete!');
-          this.incrementCounter();
+          this.incrementRoundCounter();
           this.startRound();
         } else {
           this.nextMove();
