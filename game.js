@@ -21,12 +21,35 @@ function State(playerMove) {
   var yellowButton = canvas.getItemByName('yellow');
   // Counter Display
   var counter = canvas.getItemByName('countText');
-  
-  //// FabricJS Button Highlight Functions
+
+  // Audio
+  function audioPlayer(sampleID) {
+    greenAudio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
+    redAudio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
+    blueAudio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
+    yellowAudio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
+    switch (sampleID) {
+      case 0:
+        greenAudio.play();
+        break;
+      case 1:
+        redAudio.play();
+        break;
+      case 2:
+        blueAudio.play();
+        break;
+      case 3:
+        yellowAudio.play();
+        break
+      }
+  }
+
+  // FabricJS Button Highlight Functions
   function hlGreen() {
     setTimeout(function() {
       greenButton.setFill('#13ff7c');
       canvas.renderAll();
+      audioPlayer(0); 
     }, 500);
     setTimeout(function() {
       greenButton.setFill('#03a64b');
@@ -37,6 +60,7 @@ function State(playerMove) {
     setTimeout(function() {
       redButton.setFill('#ff4c4c');
       canvas.renderAll();
+      audioPlayer(1); 
     }, 500);
     setTimeout(function() {
       redButton.setFill('#9c121c');
@@ -47,6 +71,7 @@ function State(playerMove) {
     setTimeout(function() {
       blueButton.setFill('#3399ff');
       canvas.renderAll();
+      audioPlayer(2); 
     }, 500);
     setTimeout(function() {
       blueButton.setFill('#1d8cff');
@@ -57,6 +82,7 @@ function State(playerMove) {
     setTimeout(function() {
       yellowButton.setFill('#fed93f');
       canvas.renderAll();
+      audioPlayer(3); 
     }, 500);
     setTimeout(function() {
       yellowButton.setFill('#cba70a');
@@ -64,16 +90,8 @@ function State(playerMove) {
     }, 1000); 
   }
   var hlArr = [hlGreen, hlRed, hlBlue, hlYellow];
-  
-  // Iterate move index
-  this.nextMove = function() {
-    this.currentMoveIndex++
-  }
-  
-  this.resetMove = function() {
-    this.currentMoveIndex = 0;
-  }
 
+  
   // fabricJS counter update
   function updateGuiCounter(val) {
     counter.bringToFront();
@@ -81,7 +99,17 @@ function State(playerMove) {
     canvas.renderAll();
   }
 
-  // Update counter
+  // Iterate move index
+  this.incrementMove = function() {
+    this.currentMoveIndex++
+  }
+  
+  this.resetMove = function() {
+    this.currentMoveIndex = 0;
+  }
+
+
+  // Increment Round Counter
   this.incrementRoundCounter = function () {
     this.roundCounter++;
     var round = 1 + this.roundCounter;
@@ -90,33 +118,32 @@ function State(playerMove) {
     }, 500);
   }
 
-  this.resetGame = function() {
+  // Reset Round Counter
+  this.resetRoundCounter = function() {
     this.roundCounter = 0;
-    this.currentMoveIndex = 0;
-    updateGuiCounter('--');
+    var round = 1 + this.roundCounter;
+    setTimeout(function() {
+      updateGuiCounter(round.toString());
+    }, 250);
   }
-  
+
   // Helper function for generating pattern array
   this.randomButton = function() {
     return Math.floor(Math.random() * 4);
   }
   
-  // Helper function to return current move
-  this.currentMove = function() {
-    return this.pattern[this.currentMoveIndex];
-  }
-
-  // Generate move array
+  // Generate Pattern array
   this.generatePattern = function() {
     this.pattern = Array(5).fill(0).map(this.randomButton); 
   }
-  
-  // Power On Function
-  this.powerToggle = function() {
-    this.power == 0 ? this.power = 1 : this.power = 0;
-    this.power == 0 ? updateGuiCounter('') : updateGuiCounter('--');
+
+  // Play Pattern Helper
+  this.playPattern = function() {
+    for (var i = 0; i <= this.roundCounter; i++){
+      this.doSetTimeout(this.pattern, i);
+    }    
   }
-  
+
   // timeOut intermediate helper
   this.doSetTimeout = function(arr, i) {
     setTimeout(function() {
@@ -125,12 +152,21 @@ function State(playerMove) {
     }, 1500 * i);
   }
 
+  // Helper function to return current move
+  this.currentMove = function() {
+    return this.pattern[this.currentMoveIndex];
+  }
+
+  // Power On Function
+  this.powerToggle = function() {
+    this.power == 0 ? this.power = 1 : this.power = 0;
+    this.power == 0 ? updateGuiCounter('') : updateGuiCounter('--');
+  }
+  
   // Start The Next Round
   this.startRound = function() {
     this.resetMove();
-    for (var i = 0; i <= this.roundCounter; i++){
-      this.doSetTimeout(this.pattern, i);
-    }    
+    this.playPattern();
   }
 
   // Start a new game
@@ -138,17 +174,24 @@ function State(playerMove) {
     canvas.renderAll();
     if (this.power != 0) {
       this.generatePattern();
-      updateGuiCounter('1');
+      this.resetRoundCounter();
       console.log('new game');
       this.power = 2;
       this.startRound();
     }
   }
 
+  this.resetGame = function() {
+    this.resetRoundCounter();
+    this.currentMoveIndex = 0;
+    updateGuiCounter('--');
+  }
+  
   // Check player move
   this.playerClick = function(buttonID) {
     if (this.power == 2) {
       clicked = this.checkMove(buttonID);
+      audioPlayer(buttonID); 
       if (clicked == true) {
         if (this.currentMoveIndex == 4) {
           console.log('You Win!');
@@ -159,7 +202,7 @@ function State(playerMove) {
           this.incrementRoundCounter();
           this.startRound();
         } else {
-          this.nextMove();
+          this.incrementMove();
         }
       } else {
         if (this.strict == true) {
