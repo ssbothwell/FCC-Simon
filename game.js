@@ -22,7 +22,7 @@ function State(playerMove) {
   // Counter Display
   var counter = canvas.getItemByName('countText');
 
-  // Audio
+  // Audio Playback
   function audioPlayer(sampleID) {
     greenAudio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
     redAudio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
@@ -166,7 +166,10 @@ function State(playerMove) {
   // Start The Next Round
   this.startRound = function() {
     this.resetMove();
-    this.playPattern();
+    that = this;
+    setTimeout(function() {
+      that.playPattern();
+    }, 500);
   }
 
   // Start a new game
@@ -197,8 +200,8 @@ function State(playerMove) {
           console.log('You Win!');
           this.resetGame();
           this.power = 1;
+          updateGuiCounter('!!');
         } else if (this.currentMoveIndex == this.roundCounter) {
-          console.log('Round Complete!');
           this.incrementRoundCounter();
           this.startRound();
         } else {
@@ -208,10 +211,8 @@ function State(playerMove) {
         if (this.strict == true) {
           this.power = 1;
           this.resetGame();
-          console.log('you lose!');
         } else {
           this.startRound(); 
-          console.log('try again');
         }
       }
     }
