@@ -134,7 +134,7 @@ function State(playerMove) {
   
   // Generate Pattern array
   this.generatePattern = function() {
-    this.pattern = Array(5).fill(0).map(this.randomButton); 
+    this.pattern = Array(20).fill(0).map(this.randomButton); 
   }
 
   // Play Pattern Helper
@@ -196,7 +196,7 @@ function State(playerMove) {
       clicked = this.checkMove(buttonID);
       audioPlayer(buttonID); 
       if (clicked == true) {
-        if (this.currentMoveIndex == 4) {
+        if (this.currentMoveIndex == 19) {
           console.log('You Win!');
           this.resetGame();
           this.power = 1;
